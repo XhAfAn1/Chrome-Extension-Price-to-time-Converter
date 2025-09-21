@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      width: 300px;
+      padding: 15px;
+      font-family: Arial, sans-serif;
+    }
+    h3 {
+      margin-top: 0;
+      color: #2c3e50;
+    }
+    .input-group {
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .note {
+      font-size: 12px;
+      color: #7f8c8d;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h3>Price to Time Converter</h3>
+  
+  <div class="input-group">
+    <label for="income">Income:</label>
+    <input type="number" id="income" placeholder="Enter your income">
+  </div>
+  
+  <div class="input-group">
+    <label for="period">Period:</label>
+    <select id="period">
+      <option value="hour">Per Hour</option>
+      <option value="day">Per Day</option>
+      <option value="week">Per Week</option>
+      <option value="month" selected>Per Month</option>
+      <option value="year">Per Year</option>
+    </select>
+  </div>
+  
+  <div class="input-group">
+    <label for="hoursPerDay">Work hours per day (optional):</label>
+    <input type="number" id="hoursPerDay" placeholder="Default: 8" value="8">
+  </div>
+  
+  <div class="input-group">
+    <label for="daysPerWeek">Work days per week (optional):</label>
+    <input type="number" id="daysPerWeek" placeholder="Default: 5" value="5">
+  </div>
+  
+  <button id="convert">Convert Prices</button>
+  
+  <div class="note">
+    This will convert all prices on the current page to show how much time you need to work to afford each item.
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
