@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// This function is injected into the web page
+
 function runConversionScript() {
     const CONVERTED_SPAN_CLASS = 'price-to-time-converted-span';
 
@@ -160,7 +160,6 @@ function runConversionScript() {
 
         const rate = data.effectiveHourlyRate;
         const displayMode = data.displayMode || 'replace';
-        // --- THIS IS THE MODIFIED LINE ---
         const currencyRegex = /(?:(\$|৳|BDT)\s?(\d+(?:,\d{3})*(?:\.\d{1,2})?))|(?:(\d+(?:,\d{3})*(?:\.\d{1,2})?)\s?(BDT|৳))/gi;
         const numberOnlyRegex = /^\s*(\d+(?:,\d{3})*(?:\.\d{1,2})?)\s*$/;
 
