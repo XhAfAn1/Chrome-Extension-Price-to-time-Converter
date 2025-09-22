@@ -1,86 +1,168 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <title>Settings</title>
   <style>
     body {
-      width: 300px;
-      padding: 15px;
       font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      width: 320px;
+      background: #fafafa;
     }
-    h3 {
-      margin-top: 0;
-      color: #2c3e50;
-    }
-    .input-group {
-      margin-bottom: 10px;
-    }
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-    input, select {
-      width: 100%;
-      padding: 8px;
-      box-sizing: border-box;
+    .card {
       border: 1px solid #ddd;
-      border-radius: 4px;
+      border-radius: 12px;
+      margin: 10px;
+      padding: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      background: white;
     }
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      border-radius: 4px;
+    h1 { font-size: 18px; margin: 0 0 12px 0; }
+    h3 { font-size: 14px; margin: 16px 0 8px 0; }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 8px 0;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute;
       cursor: pointer;
-      font-weight: bold;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      background-color: #ccc;
+      transition: .3s;
+      border-radius: 20px;
     }
-    button:hover {
-      background-color: #2980b9;
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 14px;
+      width: 14px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
     }
-    .note {
-      font-size: 12px;
-      color: #7f8c8d;
-      margin-top: 15px;
+    input:checked + .slider { background-color: #007bff; }
+    input:checked + .slider:before { transform: translateX(20px); }
+    button {
+      padding: 6px 12px;
+      margin: 4px 2px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: #f5f5f5;
+      cursor: pointer;
     }
+    button.active {
+      background: #007bff;
+      color: white;
+      border-color: #007bff;
+    }
+    input[type="number"] {
+      width: 80px;
+      padding: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: right;
+    }
+    .tab-buttons {
+      display: flex;
+      background: #f8f9fa;
+      border-radius: 6px;
+      padding: 2px;
+      margin-bottom: 12px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 8px 4px;
+      margin: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 11px;
+      transition: all 0.3s;
+    }
+    .tab-btn.active { background: #007bff; color: white; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .info-text { font-size: 11px; color: #666; margin: 4px 0; text-align: right; }
+    .disposable-income { font-size: 12px; color: #28a745; font-weight: bold; text-align: center; margin: 8px 0; }
   </style>
 </head>
 <body>
-  <h3>Price to Time Converter</h3>
-  
-  <div class="input-group">
-    <label for="income">Income:</label>
-    <input type="number" id="income" placeholder="Enter your income">
+  <div class="card">
+    <h1>Settings</h1>
+    <div class="row">
+      <label for="toggleMode">Convert Price to Time</label>
+      <label class="switch">
+        <input type="checkbox" id="toggleMode">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="row">
+      <button id="replaceBtn">Replace Price</button>
+      <button id="bothBtn">Show Both</button>
+    </div>
+    <div>
+      <h3>Income Configuration</h3>
+      <div class="tab-buttons">
+        <button class="tab-btn active" data-tab="hourly">Hourly</button>
+        <button class="tab-btn" data-tab="daily">Daily</button>
+        <button class="tab-btn" data-tab="monthly">Monthly</button>
+      </div>
+      <div class="tab-content active" id="hourly-tab">
+        <div class="row">
+          <label>Hourly Rate (৳)</label>
+          <input type="number" id="hourlyRate" value="15" step="0.01">
+        </div>
+      </div>
+      <div class="tab-content" id="daily-tab">
+        <div class="row">
+          <label>Hours/Day</label>
+          <input type="number" id="dailyHours" value="8" min="1" max="24">
+        </div>
+        <div class="row">
+          <label>Daily Rate (৳)</label>
+          <input type="number" id="dailyRate" value="120" step="0.01">
+        </div>
+        <div class="info-text">Hourly: ৳<span id="dailyHourlyCalc">15.00</span></div>
+      </div>
+      <div class="tab-content" id="monthly-tab">
+        <div class="row">
+          <label>Hours/Day</label>
+          <input type="number" id="monthlyHours" value="8" min="1" max="24">
+        </div>
+        <div class="row">
+          <label>Days/Month</label>
+          <input type="number" id="monthlyDays" value="22" min="1" max="31">
+        </div>
+        <div class="row">
+          <label>Monthly Salary (৳)</label>
+          <input type="number" id="monthlySalary" value="3000" step="0.01">
+        </div>
+        <div class="row">
+          <label>Fixed Expenses (৳)</label>
+          <input type="number" id="monthlyExpenses" value="0" step="0.01">
+        </div>
+        <div class="disposable-income">
+          Disposable Income: ৳<span id="disposableIncome">3000.00</span>
+        </div>
+        <div class="info-text">Hourly: ৳<span id="monthlyHourlyCalc">17.05</span></div>
+      </div>
+    </div>
   </div>
-  
-  <div class="input-group">
-    <label for="period">Period:</label>
-    <select id="period">
-      <option value="hour">Per Hour</option>
-      <option value="day">Per Day</option>
-      <option value="week">Per Week</option>
-      <option value="month" selected>Per Month</option>
-      <option value="year">Per Year</option>
-    </select>
-  </div>
-  
-  <div class="input-group">
-    <label for="hoursPerDay">Work hours per day (optional):</label>
-    <input type="number" id="hoursPerDay" placeholder="Default: 8" value="8">
-  </div>
-  
-  <div class="input-group">
-    <label for="daysPerWeek">Work days per week (optional):</label>
-    <input type="number" id="daysPerWeek" placeholder="Default: 5" value="5">
-  </div>
-  
-  <button id="convert">Convert Prices</button>
-  
-  <div class="note">
-    This will convert all prices on the current page to show how much time you need to work to afford each item.
-  </div>
-
   <script src="popup.js"></script>
 </body>
 </html>
