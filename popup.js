@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
+// --- Content Script ---
 function runConversionScript() {
     const CONVERTED_SPAN_CLASS = 'price-to-time-converted-span';
 
